@@ -1,0 +1,83 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Book Management System",
+    "description": "Add or View any book from library"
+  },
+  "tags": [
+    {
+      "name": "Books",
+      "description": "API for adding or viewing books in the system"
+    }
+  ],
+  "paths": {
+    "/books": {
+      "get": {
+        "tags": ["Books"],
+        "summary": "Get all books available in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Books"
+            }
+          }
+        }
+      }
+    },
+    "/add-book": {
+      "post": {
+        "tags": ["Books"],
+        "summary": "Add a book to system",
+        "requestBody": {
+          "description": "Book Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Book"
+              }
+            }
+          }
+        },
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "400": {
+            "description": "Failed to post data."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Book": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        }
+      }
+    },
+    "Books": {
+      "type": "object",
+      "properties": {
+        "books": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Book"
+          }
+        }
+      }
+    }
+  }
+}
